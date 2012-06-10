@@ -1,0 +1,240 @@
+div.guide_rail
+  background-attachment: scroll
+  background-color: transparent
+  background-image: none
+  background-position: 0 0
+  background-repeat: repeat
+  border-color: black
+  border-radius: 0 0 0 0
+  border-style: none
+  border-width: medium
+  clear: none
+  clip: none
+  color: inherit
+  counter-increment: none
+  counter-reset: none
+  cursor: auto
+  direction: inherit
+  display: inline
+  float: none
+  font-family: inherit
+  font-size: inherit
+  font-style: inherit
+  font-variant: normal
+  font-weight: inherit
+  height: auto
+  letter-spacing: normal
+  line-height: inherit
+  list-style-image: none
+  list-style-position: inside
+  list-style-type: inherit
+  margin: 0
+  max-height: none
+  max-width: none
+  opacity: 1
+  overflow: visible
+  padding: 0
+  position: static
+  quotes: "" ""
+  table-layout: auto
+  text-align: inherit
+  text-decoration: inherit
+  text-transform: none
+  text-shadow: none
+  unicode-bidi: normal
+  vertical-align: baseline
+  visibility: visible
+  white-space: normal
+  width: auto
+  word-spacing: normal
+  z-index: auto
+  div
+    &.guide-rail-text, &.guide-rail-triangle
+      background-attachment: scroll
+      background-color: transparent
+      background-image: none
+      background-position: 0 0
+      background-repeat: repeat
+      border-color: black
+      border-radius: 0 0 0 0
+      border-style: none
+      border-width: medium
+      clear: none
+      clip: none
+      color: inherit
+      counter-increment: none
+      counter-reset: none
+      cursor: auto
+      direction: inherit
+      display: inline
+      float: none
+      font-family: inherit
+      font-size: inherit
+      font-style: inherit
+      font-variant: normal
+      font-weight: inherit
+      height: auto
+      letter-spacing: normal
+      line-height: inherit
+      list-style-image: none
+      list-style-position: inside
+      list-style-type: inherit
+      margin: 0
+      max-height: none
+      max-width: none
+      opacity: 1
+      overflow: visible
+      padding: 0
+      position: static
+      quotes: "" ""
+      table-layout: auto
+      text-align: inherit
+      text-decoration: inherit
+      text-transform: none
+      text-shadow: none
+      unicode-bidi: normal
+      vertical-align: baseline
+      visibility: visible
+      white-space: normal
+      width: auto
+      word-spacing: normal
+      z-index: auto
+    &.guide-rail-number
+      width: 42px
+      height: 40px
+      background: url(bullet.png) top right no-repeat
+      color: #FFF
+      font-weight: bold
+      font-size: 19px
+      line-height: 2em
+      text-align: center
+    &.guide-rail-text
+      position: absolute
+      width: 220px
+      padding: 15px
+      background: #222
+      /* Old browsers
+      border-radius: 5px
+      text-align: left
+      font-size: 0.9em
+      line-height: 1.35
+      font-weight: normal
+    &.right
+      top: 3px
+      left: 50px
+    &.left
+      top: 3px
+      margin-top: 0
+      right: 50px
+    &.bottom
+      top: 50px
+      left: -105px
+    &.top
+      bottom: 50px
+      left: -105px
+    &.guide-rail-text div.guide-rail-triangle
+      position: absolute
+      width: 0
+      height: 0
+      border: 10px solid #222
+    &.right div.guide-rail-triangle
+      top: 50%
+      margin-top: -10px
+      left: -20px
+      border-color: transparent #222 transparent transparent
+    &.left div.guide-rail-triangle
+      top: 50%
+      margin-top: -10px
+      right: -20px
+      border-color: transparent transparent transparent #222
+    &.bottom div.guide-rail-triangle
+      top: -20px
+      left: 50%
+      margin-left: -10px
+      border-color: transparent transparent #222 transparent
+    &.top div.guide-rail-triangle
+      bottom: -20px
+      left: 50%
+      margin-left: -10px
+      border-color: #222 transparent transparent transparent
+  z-index: 100000
+  position: absolute
+  top: 0
+  left: 0
+  width: 42px
+  height: 40px
+  color: #FFF
+
+/* Editing
+
+.guide_rail.editing
+  cursor: move
+  .guide-rail-content
+    &:hover, &:focus
+      background-color: #444
+
+.guide-rail-props
+  position: absolute
+  bottom: -30px
+  left: 0
+  background-color: #000
+  padding: 3px
+  a
+    color: #FFF !important
+    font-size: 0.8em
+
+.guide-outline-element
+  outline: 1px solid #c00
+
+.guide-element-selected
+  outline: 1px solid #0c0
+
+.guide-rail-offset-box
+  display: none
+  position: absolute
+  top: 0
+  left: 0
+  border-top: 1px dashed #999
+  border-right: 1px dashed #999
+  z-index: 99999
+  div
+    font-size: 42px
+    line-height: 0
+    position: absolute
+    top: 0
+    left: 0
+    margin-top: -2px
+    margin-left: -6px
+    color: #999
+
+.guide-rail-tips
+  position: fixed
+  right: 15px
+  top: 15px
+  width: 200px
+  z-index: 100000
+
+  ul.guide-rail-tip-list
+
+    li.guide-rail-tip
+      display: block
+      background-color: #000
+      border-radius: 4px
+      color: #FFF !important
+
+  .guide-rail-add-tip
+    display: block
+    background-color: #F00
+    padding: 10px
+    color: #FFF !important
+    border-radius: 4px
+
+.guide-rail-pointer
+  z-index: 100000
+  position: absolute
+  top: 1000px
+  left: 0
+  width: 39px
+  height: 40px
+  border: 0 !important
+  background: url(bullet.png) top left no-repeat
