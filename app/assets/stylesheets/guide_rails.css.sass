@@ -1,4 +1,4 @@
-div.guide_rail
+div.guide-rail, div.guide-rail-tips
   background-attachment: scroll
   background-color: transparent
   background-image: none
@@ -17,11 +17,11 @@ div.guide_rail
   direction: inherit
   display: inline
   float: none
-  font-family: inherit
-  font-size: inherit
-  font-style: inherit
+  font-family: Helvetica, Arial, sans-serif !important
+  font-size: 12px !important
+  font-style: normal !important
   font-variant: normal
-  font-weight: inherit
+  font-weight: normal !important
   height: auto
   letter-spacing: normal
   line-height: inherit
@@ -167,11 +167,14 @@ div.guide_rail
 
 /* Editing
 
-.guide_rail.editing
+.guide-rail.editing
   cursor: move
   .guide-rail-content
     &:hover, &:focus
       background-color: #444
+
+  .guide-rail-triangle
+    cursor: move
 
 .guide-rail-props
   position: absolute
@@ -189,7 +192,7 @@ div.guide_rail
 .guide-element-selected
   outline: 1px solid #0c0
 
-.guide-rail-offset-box
+div.guide-rail-offset-box
   display: none
   position: absolute
   top: 0
@@ -207,29 +210,63 @@ div.guide_rail
     margin-left: -6px
     color: #999
 
-.guide-rail-tips
-  position: fixed
-  right: 15px
-  top: 15px
-  width: 200px
+div.guide-rail-tips
+  position: fixed !important
+  left: auto !important
+  bottom: auto !important
+  right: 15px !important
+  top: 15px !important
+  width: 200px !important
+  height: auto !important
   z-index: 100000
+  border-radius: 5px !important
+  box-shadow: 0px 0px 5px #000
+
+  div.guide-rail-logo
+    width: 176px
+    height: 15px
+    padding: 10px
+    text-indent: -10000px
+    background: #000 url(list-logo.png) center center no-repeat
+    color: #FFF
+    font-size: 16px
+    text-transform: uppercase
+    font-weight: bold
+    border-top-left-radius: 5px
+    border-top-right-radius: 5px
+    border-top: 2px solid #FFF
+    border-right: 2px solid #FFF
+    border-left: 2px solid #FFF
+    border-bottom: 1px solid #FFF
 
   ul.guide-rail-tip-list
+    margin: 0
+    list-style: none
 
     li.guide-rail-tip
+      margin: 0
       display: block
       background-color: #000
-      border-radius: 4px
+      padding: 10px
       color: #FFF !important
+      border-top: 1px solid #555
+      border-left: 2px solid #FFF
+      border-right: 2px solid #FFF
 
   .guide-rail-add-tip
     display: block
-    background-color: #F00
+    background-color: #569ec6
     padding: 10px
     color: #FFF !important
-    border-radius: 4px
+    border-bottom-left-radius: 5px
+    border-bottom-right-radius: 5px
+    border-left: 2px solid #FFF
+    border-right: 2px solid #FFF
+    border-bottom: 2px solid #FFF
+    text-decoration: none
 
 .guide-rail-pointer
+  display: none
   z-index: 100000
   position: absolute
   top: 1000px

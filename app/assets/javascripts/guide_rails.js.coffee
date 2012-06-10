@@ -1,5 +1,5 @@
 $.fn.guideRail = (number, left, top, message, alignment, editing) ->
-  div = $("<div class='guide_rail'></div>")
+  div = $("<div class='guide-rail'></div>")
   num = $("<div class='guide-rail-number'></div>")
   num.append number
   div.append num
@@ -8,7 +8,8 @@ $.fn.guideRail = (number, left, top, message, alignment, editing) ->
   content = $("<div></div>").addClass("guide-rail-content")
   content.append message
   text.append content
-  text.append "<div class='guide-rail-triangle'></div>"
+  triangle = $("<div class='guide-rail-triangle'></div>")
+  text.append triangle
   div.append text
   div.css
     left: left
@@ -94,8 +95,11 @@ $.fn.guideRail = (number, left, top, message, alignment, editing) ->
       else
         text.css marginTop: "auto"
 
-    text.mousedown (e) ->
-      return  unless $(e.target).hasClass("guide-rail-text")
+    content.on 'keyup', (e) ->
+      div.trigger 'update', content.text()
+
+    triangle.mousedown (e) ->
+      return  unless $(e.target).hasClass("guide-rail-triangle")
       e.preventDefault()
       e.stopPropagation()
 
@@ -143,13 +147,21 @@ $.fn.guideRail = (number, left, top, message, alignment, editing) ->
 
 window.GuideRail = class GuideRail
   constructor: (@num) ->
-    @selectParent()
+    unless @num
+      @num = GuideRail.tips.length + 1
 
-  selectParent: ->
+    @selectParent =>
+      @addToList()
+
+  addToList: ->
+    @listElement = $("<li class='guide-rail-tip'>" + @num + ". Type description here</li>")
+    $(".guide-rail-tip-list").append @listElement
+
+  selectParent: (cb) ->
     all = $("*")
     pointer = $("<div class='guide-rail-pointer'></div>").appendTo("body")
-    pointer.css(top: window.innerHeight - 50)
-    pointer.animate({top: window.mousePositionY - 25, left: window.mousePositionX + 20}, 300)
+    pointer.css(top: window.mousePositionY - 25, left: window.mousePositionX + 20)
+    pointer.show('scale')
 
     mouseover = (event) ->
       $(event.target).addClass "guide-outline-element"
@@ -167,8 +179,10 @@ window.GuideRail = class GuideRail
       @parent = $(event.target)
       @selector = @uniqueSelector(@parent)
       @el = @parent.guideRail @num, 0, 0, "Type description here", "right", true
+      @el.on 'update', @updateDescription
 
       clearSelectBox()
+      cb() if cb
 
     clearSelectBox = ->
       pointer.remove()
@@ -183,6 +197,10 @@ window.GuideRail = class GuideRail
         clearSelectBox() if e.which == 27
     , 1
 
+  updateDescription: (e, description) =>
+    @description = description
+    @el.find('.guide-rail-content:not(:focus)').text(description)
+    @listElement.filter(":not(:focus)").text "#{@num}. #{description}"
 
   uniqueSelector: (target) ->
     uniqueFor = (el) ->
@@ -203,20 +221,37 @@ window.GuideRail = class GuideRail
     target = $(target)
     uniqueFor target
 
+  offset: ->
+    left: parseInt(@el.css 'left')
+    top: parseInt(@el.css 'top')
 
+  direction: ->
+    @el.find('.guide-rail-text').attr('class')
 
-guideNumber = 0
+  serialize: ->
+    {
+      num: @num
+      offset: @offset()
+      direction: @direction()
+      description: @description || ""
+    }
+
+  @tips: []
+
+  @serialize: ->
+    tip.serialize() for tip in @tips
+
 $(document).ready ->
   addTip = (e) ->
     window.mousePositionX = e.clientX
     window.mousePositionY = e.clientY
-    guideNumber += 1
 
     e.preventDefault()
-    guide = new GuideRail(guideNumber)
+    guide = new GuideRail()
+    GuideRail.tips.push(guide)
 
-  tipList = $("<div class='guide-rail-tips'></div>")
-  addTipButton = $("<a href='#' class='guide-rail-add-tip'>Add tip</a>")
+  tipList = $("<div class='guide-rail-tips'><div class='guide-rail-logo'>App Tour Guide</div><ul class='guide-rail-tip-list'></ul></div>")
+  addTipButton = $("<a href='#' class='guide-rail-add-tip'>+ Add tip</a>")
   addTipButton.click addTip
   tipList.append addTipButton
   $("body").append tipList
