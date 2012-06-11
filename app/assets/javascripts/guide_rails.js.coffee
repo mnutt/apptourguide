@@ -242,6 +242,8 @@ window.GuideRail = class GuideRail
     tip.serialize() for tip in @tips
 
 $(document).ready ->
+  return
+
   addTip = (e) ->
     window.mousePositionX = e.clientX
     window.mousePositionY = e.clientY
