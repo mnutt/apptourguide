@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  description: The first step is to do something good.
+  num: 1
+  direction: right
+  x_offset: 10
+  x_offset: 10
+  parent: h4
+
+two:
+  description: The next step is to profit.
+  num: 2
+  direction: top
+  x_offset: 3
+  x_offset: 40
+  parent: body
