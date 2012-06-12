@@ -1,4 +1,4 @@
-div.guide-rail, div.guide-rail-tips
+div.tour-guide, div.tour-guide-tips
   background-attachment: scroll
   background-color: transparent
   background-image: none
@@ -49,7 +49,7 @@ div.guide-rail, div.guide-rail-tips
   word-spacing: normal
   z-index: auto
   div
-    &.guide-rail-text, &.guide-rail-triangle
+    &.tour-guide-text, &.tour-guide-triangle
       background-attachment: scroll
       background-color: transparent
       background-image: none
@@ -99,7 +99,7 @@ div.guide-rail, div.guide-rail-tips
       width: auto
       word-spacing: normal
       z-index: auto
-    &.guide-rail-number
+    &.tour-guide-number
       width: 42px
       height: 40px
       background: url(bullet.png) top right no-repeat
@@ -108,7 +108,7 @@ div.guide-rail, div.guide-rail-tips
       font-size: 19px
       line-height: 2em
       text-align: center
-    &.guide-rail-text
+    &.tour-guide-text
       position: absolute
       width: 220px
       padding: 15px
@@ -132,27 +132,27 @@ div.guide-rail, div.guide-rail-tips
     &.top
       bottom: 50px
       left: -105px
-    &.guide-rail-text div.guide-rail-triangle
+    &.tour-guide-text div.tour-guide-triangle
       position: absolute
       width: 0
       height: 0
       border: 10px solid #222
-    &.right div.guide-rail-triangle
+    &.right div.tour-guide-triangle
       top: 50%
       margin-top: -10px
       left: -20px
       border-color: transparent #222 transparent transparent
-    &.left div.guide-rail-triangle
+    &.left div.tour-guide-triangle
       top: 50%
       margin-top: -10px
       right: -20px
       border-color: transparent transparent transparent #222
-    &.bottom div.guide-rail-triangle
+    &.bottom div.tour-guide-triangle
       top: -20px
       left: 50%
       margin-left: -10px
       border-color: transparent transparent #222 transparent
-    &.top div.guide-rail-triangle
+    &.top div.tour-guide-triangle
       bottom: -20px
       left: 50%
       margin-left: -10px
@@ -167,16 +167,16 @@ div.guide-rail, div.guide-rail-tips
 
 /* Editing
 
-.guide-rail.editing
+.tour-guide.editing
   cursor: move
-  .guide-rail-content
+  .tour-guide-content
     &:hover, &:focus
       background-color: #444
 
-  .guide-rail-triangle
+  .tour-guide-triangle
     cursor: move
 
-.guide-rail-props
+.tour-guide-props
   position: absolute
   bottom: -30px
   left: 0
@@ -192,7 +192,7 @@ div.guide-rail, div.guide-rail-tips
 .guide-element-selected
   outline: 1px solid #0c0
 
-div.guide-rail-offset-box
+div.tour-guide-offset-box
   display: none
   position: absolute
   top: 0
@@ -210,7 +210,7 @@ div.guide-rail-offset-box
     margin-left: -6px
     color: #999
 
-div.guide-rail-tips
+div.tour-guide-tips
   position: fixed !important
   left: auto !important
   bottom: auto !important
@@ -222,7 +222,7 @@ div.guide-rail-tips
   border-radius: 5px !important
   box-shadow: 0px 0px 5px #000
 
-  div.guide-rail-logo
+  div.tour-guide-logo
     width: 176px
     height: 15px
     padding: 10px
@@ -239,13 +239,13 @@ div.guide-rail-tips
     border-left: 2px solid #FFF
     border-bottom: 1px solid #FFF
 
-  ul.guide-rail-tip-list
+  ul.tour-guide-tip-list
     margin: 0
     padding: 0
     text-indent: 0
     list-style: none
 
-    li.guide-rail-tip
+    li.tour-guide-tip
       margin: 0
       display: block
       background-color: #000
@@ -255,7 +255,7 @@ div.guide-rail-tips
       border-left: 2px solid #FFF
       border-right: 2px solid #FFF
 
-  .guide-rail-add-tip
+  .tour-guide-add-tip
     display: block
     background-color: #569ec6
     padding: 10px
@@ -267,7 +267,7 @@ div.guide-rail-tips
     border-bottom: 2px solid #FFF
     text-decoration: none
 
-.guide-rail-pointer
+.tour-guide-pointer
   display: none
   z-index: 100000
   position: absolute

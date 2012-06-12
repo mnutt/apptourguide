@@ -11,7 +11,7 @@ jQuery ->
 
   class TipItemView extends Backbone.View
     tagName: 'li'
-    className: 'guide-rail-tip'
+    className: 'tour-guide-tip'
 
     initialize: ->
       _.bindAll @
@@ -47,17 +47,17 @@ jQuery ->
 
   class TipView extends Backbone.View
     tagName: 'div'
-    className: 'guide-rail'
+    className: 'tour-guide'
 
     initialize: ->
       _.bindAll @
 
     render: ->
       $(@el).html """
-        <div class='guide-rail-number'>#{@model.get 'num'}</div>
-        <div class='guide-rail-text #{@model.get 'direction'}'>
-          <div class='guide-rail-content' contenteditable='true'>#{@model.get 'description'}</div>
-          <div class='guide-rail-triangle'></div>
+        <div class='tour-guide-number'>#{@model.get 'num'}</div>
+        <div class='tour-guide-text #{@model.get 'direction'}'>
+          <div class='tour-guide-content' contenteditable='true'>#{@model.get 'description'}</div>
+          <div class='tour-guide-triangle'></div>
         </div>
       """
 
@@ -75,7 +75,7 @@ jQuery ->
       $(@model.get 'parent')
 
     adjustTextAlignment: ->
-      textEl = $(@el).find('div.guide-rail-text')
+      textEl = $(@el).find('div.tour-guide-text')
       if @model.get('direction') is "left" or @model.get('direction') is "right"
         textEl.css marginTop: textEl.height() / -2
       else
@@ -93,7 +93,7 @@ jQuery ->
       super
       $(@el).addClass 'editing'
 
-      @offsetBox = $("<div class='guide-rail-offset-box'><div>&middot;</div></div>")
+      @offsetBox = $("<div class='tour-guide-offset-box'><div>&middot;</div></div>")
       @parent().append @offsetBox
 
       if @model.get('parent') is ''
@@ -102,25 +102,25 @@ jQuery ->
       @
 
     events:
-      'click     .guide-rail-number':   "nothing"
-      'mousedown .guide-rail-number':   "move"
-      'mousedown .guide-rail-triangle': "changeDirection"
-      'keyup     .guide-rail-content':  "setDescription"
+      'click     .tour-guide-number':   "nothing"
+      'mousedown .tour-guide-number':   "move"
+      'mousedown .tour-guide-triangle': "changeDirection"
+      'keyup     .tour-guide-content':  "setDescription"
 
     unrender: ->
       $(@el).remove()
       @offsetBox.remove()
 
     setDescription: ->
-      @model.set 'description', $(@el).find('.guide-rail-content').text()
+      @model.set 'description', $(@el).find('.tour-guide-content').text()
       @adjustTextAlignment()
 
     changeDirection: (e) ->
-      return  unless $(e.target).hasClass("guide-rail-triangle")
+      return  unless $(e.target).hasClass("tour-guide-triangle")
       e.preventDefault()
       e.stopPropagation()
 
-      $(@el).find(".guide-rail-content").blur()
+      $(@el).find(".tour-guide-content").blur()
 
       x = e.clientX
       y = e.clientY
@@ -155,7 +155,7 @@ jQuery ->
       @offsetBox.detach()
 
       all = $("*")
-      pointer = $("<div class='guide-rail-pointer'></div>").appendTo("body")
+      pointer = $("<div class='tour-guide-pointer'></div>").appendTo("body")
       pointer.css(top: window.mousePositionY - 25, left: window.mousePositionX + 20)
       pointer.show('scale')
 
@@ -276,10 +276,10 @@ jQuery ->
 
   class TipItemListView extends Backbone.View
     tagName: 'div'
-    className: 'guide-rail-tips'
+    className: 'tour-guide-tips'
 
     events:
-      'click .guide-rail-add-tip': 'addTip'
+      'click .tour-guide-add-tip': 'addTip'
 
     initialize: (@collection) ->
       _.bindAll @
@@ -315,10 +315,10 @@ jQuery ->
 
     render: ->
       $(@el).html """
-        <div class='guide-rail-logo'>App Tour Guide</div>
-          <ul class='guide-rail-tip-list'></ul>
+        <div class='tour-guide-logo'>App Tour Guide</div>
+          <ul class='tour-guide-tip-list'></ul>
           </ul>
-          <a href='#' class='guide-rail-add-tip'>+ Add tip</a>
+          <a href='#' class='tour-guide-add-tip'>+ Add tip</a>
         </div>
       """
       $("body").append @el
