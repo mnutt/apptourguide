@@ -326,5 +326,6 @@ jQuery ->
 
       @
 
+  $("head").append("<link rel='stylesheet' href='http://localhost:3004/assets/tour_guide.css'/>");
   window.tips = new TipList
   tipItemListView = new TipItemListView(tips)
