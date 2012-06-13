@@ -154,7 +154,7 @@ jQuery ->
       $(@el).detach()
       @offsetBox.detach()
 
-      all = $("*")
+      all = $("div, span, h1, h2, h3, h4, h5, h6, body, p, a, article, b, blockquote, button, caption, cite, code, dd, dl, dt, em, fieldset, footer, form, header, i, label, legend, li, menu, nav, ol, pre, q, s, section, small, sub, sup, table, tbody, td, tfoot, th, thead, u, ul")
       pointer = $("<div class='tour-guide-pointer'></div>").appendTo("body")
       pointer.css(top: window.mousePositionY - 25, left: window.mousePositionX + 20)
       pointer.show('scale')
