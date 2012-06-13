@@ -41,6 +41,7 @@ div.tour-guide, div.tour-guide-tips
   text-decoration: none !important
   text-transform: none
   text-shadow: none
+  text-indent: 0 !important
   unicode-bidi: normal
   vertical-align: baseline
   visibility: visible
@@ -79,12 +80,12 @@ div.tour-guide, div.tour-guide-tips
       list-style-image: none
       list-style-position: inside
       list-style-type: inherit
-      margin: 0
+      margin: 0 !important
       max-height: none
       max-width: none
       opacity: 1
       overflow: visible
-      padding: 0
+      padding: 0 !important
       position: static
       quotes: "" ""
       table-layout: auto
@@ -111,7 +112,7 @@ div.tour-guide, div.tour-guide-tips
     &.tour-guide-text
       position: absolute
       width: 220px
-      padding: 15px
+      padding: 15px !important
       background: #222
       /* Old browsers
       border-radius: 5px
@@ -124,7 +125,7 @@ div.tour-guide, div.tour-guide-tips
       left: 50px
     &.left
       top: 3px
-      margin-top: 0
+      margin-top: 0 !important
       right: 50px
     &.bottom
       top: 50px
@@ -136,27 +137,27 @@ div.tour-guide, div.tour-guide-tips
       position: absolute
       width: 0
       height: 0
-      border: 10px solid #222
+      border: 10px solid #222 !important
     &.right div.tour-guide-triangle
       top: 50%
-      margin-top: -10px
+      margin-top: -10px !important
       left: -20px
-      border-color: transparent #222 transparent transparent
+      border-color: transparent #222 transparent transparent !important
     &.left div.tour-guide-triangle
       top: 50%
-      margin-top: -10px
+      margin-top: -10px !important
       right: -20px
-      border-color: transparent transparent transparent #222
+      border-color: transparent transparent transparent #222 !important
     &.bottom div.tour-guide-triangle
       top: -20px
       left: 50%
-      margin-left: -10px
-      border-color: transparent transparent #222 transparent
+      margin-left: -10px !important
+      border-color: transparent transparent #222 transparent !important
     &.top div.tour-guide-triangle
       bottom: -20px
       left: 50%
-      margin-left: -10px
-      border-color: #222 transparent transparent transparent
+      margin-left: -10px !important
+      border-color: #222 transparent transparent transparent !important
   z-index: 100000
   position: absolute
   top: 0
@@ -216,9 +217,10 @@ div.tour-guide-tips
   bottom: auto !important
   right: 15px !important
   top: 15px !important
-  width: 200px !important
+  width: 196px !important
   height: auto !important
   z-index: 100000
+  border: 2px solid #FFF
   border-radius: 5px !important
   box-shadow: 0px 0px 5px #000
 
@@ -232,12 +234,10 @@ div.tour-guide-tips
     font-size: 16px
     text-transform: uppercase
     font-weight: bold
-    border-top-left-radius: 5px
-    border-top-right-radius: 5px
-    border-top: 2px solid #FFF
-    border-right: 2px solid #FFF
-    border-left: 2px solid #FFF
     border-bottom: 1px solid #FFF
+    border-top-left-radius: 3px
+    border-top-right-radius: 3px
+
 
   ul.tour-guide-tip-list
     margin: 0
@@ -248,24 +248,42 @@ div.tour-guide-tips
     li.tour-guide-tip
       margin: 0
       display: block
-      background-color: #000
+      background-color: #222
       padding: 10px
       color: #FFF !important
-      border-top: 1px solid #555
-      border-left: 2px solid #FFF
-      border-right: 2px solid #FFF
+      border-bottom: 1px solid #fff
 
-  .tour-guide-add-tip
-    display: block
-    background-color: #569ec6
-    padding: 10px
-    color: #FFF !important
-    border-bottom-left-radius: 5px
-    border-bottom-right-radius: 5px
-    border-left: 2px solid #FFF
-    border-right: 2px solid #FFF
-    border-bottom: 2px solid #FFF
-    text-decoration: none
+      a
+        color: #069 !important
+        text-decoration: none
+
+  .tour-guide-menu-options
+    a.tour-guide-add-tip
+      display: block
+      font-weight: bold
+      background-color: #569ec6
+      padding: 10px 0
+      text-indent: 10px
+      margin-right: -20px
+      color: #FFF !important
+      text-decoration: none
+      width: 100%
+      border-bottom-left-radius: 3px
+      border-bottom-right-radius: 3px
+
+    a.tour-guide-save
+      float: right
+      display: block
+      padding: 10px
+      margin-left: -10px
+      background-color: #000
+      font-weight: bold
+      text-align: center
+      color: #FFF
+      text-decoration: none
+      width: 40%
+      border-bottom-right-radius: 3px
+
 
 .tour-guide-pointer
   display: none

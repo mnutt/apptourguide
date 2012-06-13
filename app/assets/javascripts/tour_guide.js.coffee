@@ -1,17 +1,32 @@
 jQuery ->
+  BASE_URL = "http://localhost:3004"
+
   class Tip extends Backbone.Model
     defaults:
-      xOffset: 0
-      yOffset: 0
+      x_offset: 0
+      y_offset: 0
       parent: ""
       description: "Type description here"
       direction: "right"
+
+    toJSON: ->
+      return {
+        x_offset:    @get 'x_offset'
+        y_offset:    @get 'y_offset'
+        parent:      @get 'parent'
+        description: @get 'description'
+        direction:   @get 'direction'
+        num:         @get 'num'
+      }
 
   class TipView extends Backbone.View
 
   class TipItemView extends Backbone.View
     tagName: 'li'
     className: 'tour-guide-tip'
+
+    events:
+      'click .delete': 'remove'
 
     initialize: ->
       _.bindAll @
@@ -33,10 +48,8 @@ jQuery ->
     remove: ->
       @model.destroy()
 
-    events:
-      'click .delete': 'remove'
-
   class TipList extends Backbone.Collection
+    localStorage: new Backbone.LocalStorage("TourGuide.TipList")
     model: Tip
 
     renumber: ->
@@ -61,7 +74,7 @@ jQuery ->
         </div>
       """
 
-      $(@el).css(left: @model.get('xOffset'), top: @model.get('yOffset'))
+      $(@el).css(left: @model.get('x_offset'), top: @model.get('y_offset'))
 
       parent = @parent()
       parent.css position: "relative" if parent.css("position") is "static"
@@ -105,6 +118,7 @@ jQuery ->
       'click     .tour-guide-number':   "nothing"
       'mousedown .tour-guide-number':   "move"
       'mousedown .tour-guide-triangle': "changeDirection"
+      'click     .tour-guide-content':  "nothing"
       'keyup     .tour-guide-content':  "setDescription"
 
     unrender: ->
@@ -154,7 +168,9 @@ jQuery ->
       $(@el).detach()
       @offsetBox.detach()
 
-      all = $("div, span, h1, h2, h3, h4, h5, h6, body, p, a, article, b, blockquote, button, caption, cite, code, dd, dl, dt, em, fieldset, footer, form, header, i, label, legend, li, menu, nav, ol, pre, q, s, section, small, sub, sup, table, tbody, td, tfoot, th, thead, u, ul")
+      allQuery = "div, span, h1, h2, h3, h4, h5, h6, body, p, a, article, b, blockquote, button, caption, cite, code, dd, dl, dt, em, fieldset, footer, form, header, i, label, legend, li, menu, nav, ol, pre, q, s, section, small, sub, sup, table, tbody, td, tfoot, th, thead, u, ul"
+      all = $(allQuery)
+
       pointer = $("<div class='tour-guide-pointer'></div>").appendTo("body")
       pointer.css(top: window.mousePositionY - 25, left: window.mousePositionX + 20)
       pointer.show('scale')
@@ -171,6 +187,11 @@ jQuery ->
       placeTip = (event) =>
         event.preventDefault()
         event.stopPropagation()
+
+        # If the hovered element doesn't support sub-elements, check its parent
+        unless $(event.target).filter(allQuery).length
+          event.target = $(event.target).parent().get(0)
+          return placeTip(event)
 
         @model.set 'parent', @uniqueSelector($(event.target))
 
@@ -232,8 +253,8 @@ jQuery ->
       e.stopPropagation()
 
       @offsetBox.hide()
-      @model.set 'xOffset', parseInt $(@el).css('left')
-      @model.set 'yOffset', parseInt $(@el).css('top')
+      @model.set 'x_offset', parseInt $(@el).css('left')
+      @model.set 'y_offset', parseInt $(@el).css('top')
 
       $(document).unbind 'selectstart', @disableEvent
       $(document).unbind 'mousemove',   @dragging
@@ -280,15 +301,27 @@ jQuery ->
 
     events:
       'click .tour-guide-add-tip': 'addTip'
+      'click .tour-guide-save'   : 'save'
 
     initialize: (@collection) ->
       _.bindAll @
       @collection.bind 'add', @appendTipItem
       @collection.bind 'add', @appendTip
+      @collection.bind 'reset', @render
 
       @render()
 
+    save: (e) ->
+      e.preventDefault()
+
+      tipData = tip_list: JSON.stringify @collection.toJSON()
+
+      $.post "#{BASE_URL}/tip_lists/#{tourGuideTipListId}", tip_list: tipData, _method: 'put', (data) ->
+        console.log data
+
     addTip: (e) ->
+      $("a.tour-guide-save").show()
+
       # Hack, for remembering the cursor position
       window.mousePositionX = e.clientX
       window.mousePositionY = e.clientY
@@ -300,6 +333,7 @@ jQuery ->
 
     addAll: ->
       @collection.each @appendTipItem
+      @collection.each @appendTip
 
     appendTip: (tip) ->
       tipView = new EditableTipView(model: tip)
@@ -318,14 +352,23 @@ jQuery ->
         <div class='tour-guide-logo'>App Tour Guide</div>
           <ul class='tour-guide-tip-list'></ul>
           </ul>
-          <a href='#' class='tour-guide-add-tip'>+ Add tip</a>
+          <div class='tour-guide-menu-options'>
+            <a href='#' class='tour-guide-save' style='display: none;'>Save &rarr;</a>
+            <a href='#' class='tour-guide-add-tip'>+ Add tip</a>
+          </div>
         </div>
       """
       $("body").append @el
       @addAll()
+      $("a.tour-guide-save").show() if @collection.length
 
       @
 
-  $("head").append("<link rel='stylesheet' href='http://localhost:3004/assets/tour_guide.css'/>");
-  window.tips = new TipList
-  tipItemListView = new TipItemListView(tips)
+  tourGuideTipListId=1
+
+  $("head").append("<link rel='stylesheet' href='#{BASE_URL}/assets/tour_guide.css'/>");
+
+  $.getJSON "#{BASE_URL}/tip_lists/#{tourGuideTipListId}", (tipData) ->
+    window.tips = new TipList
+    tipItemListView = new TipItemListView(tips)
+    tips.reset tipData.tips
